@@ -1,159 +1,38 @@
-// const express = require('express');
-// const fs = require('fs');  // Để thao tác với file
-// const app = express();
-// const bodyParser = require('body-parser');
-
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-// app.post('/submit-feedback', (req, res) => {
-//     const { name, feedback } = req.body;
-
-//     // Chuẩn bị dữ liệu cần lưu
-//     const feedbackData = `Tên: ${name}\nPhản hồi: ${feedback}\n\n`;
-
-//     // Lưu dữ liệu vào file 'feedback.txt'
-//     fs.appendFile('feedback.txt', feedbackData, (err) => {
-//         if (err) {
-//             console.error('Lỗi khi lưu dữ liệu:', err);
-//             res.status(500).send('Đã có lỗi xảy ra khi lưu phản hồi.');
-//         } else {
-//             res.send("Cảm ơn bạn đã gửi phản hồi!");
-//         }
-//     });
-// });
-
-// app.listen(3000, () => console.log('Server đang chạy tại http://localhost:3000'));
-
-// const express = require('express');
-// const cors = require('cors');
-// const app = express();
-// const bodyParser = require('body-parser');
-
-// // Sử dụng CORS middleware
-// app.use(cors());
-
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-// app.post('/submit-feedback', (req, res) => {
-//     const { name, feedback } = req.body;
-//     // Xử lý dữ liệu phản hồi ở đây
-//     console.log(`Tên: ${name}, Lời chúc: ${feedback}`);
-//     res.send("Cảm ơn bạn đã gửi phản hồi!");
-
-// });
-
-// app.listen(3000, () => console.log('Server đang chạy tại http://localhost:3000'));
-
-// const express = require('express');
-// const cors = require('cors');
-// const fs = require('fs');  // Đảm bảo rằng fs đã được require
-// const bodyParser = require('body-parser');
-
-// const app = express();
-
-// // Sử dụng CORS middleware
-// app.use(cors());
-
-// // Sử dụng body-parser để phân tích cú pháp dữ liệu gửi lên
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-// app.post('/submit-feedback', (req, res) => {
-//     const { name, feedback } = req.body;
-//     // Xử lý dữ liệu phản hồi ở đây
-//     console.log(`Tên: ${name}, Lời chúc: ${feedback}`);
-
-//     const feedbackData = `Tên: ${name}\nPhản hồi: ${feedback}\n\n`;
-
-//     // Lưu dữ liệu vào file 'feedback.txt'
-//     fs.appendFile('feedbacks.txt', feedbackData, (err) => {
-//         if (err) {
-//             console.error('Lỗi khi lưu dữ liệu:', err);
-//             return res.status(500).send('Đã có lỗi xảy ra khi lưu phản hồi.');
-//         }
-
-//         // Gửi phản hồi thành công chỉ một lần sau khi dữ liệu đã được lưu
-//         res.send("Cảm ơn bạn đã gửi phản hồi!");
-//     });
-// });
-
-// app.listen(3000, () => console.log('Server đang chạy tại http://localhost:3000'));
-
-// const express = require('express');
-// const cors = require('cors');
-// const fs = require('fs');  // Đảm bảo rằng fs đã được require
-// const bodyParser = require('body-parser');
-
-// const app = express();
-
-// // Sử dụng CORS middleware
-// app.use(cors());
-
-// // Sử dụng body-parser để phân tích cú pháp dữ liệu gửi lên
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-// app.post('/submit-feedback', (req, res) => {
-//     const { name, feedback } = req.body;
-//     // Xử lý dữ liệu phản hồi ở đây
-//     console.log(`Tên: ${name}, Lời chúc: ${feedback}`);
-
-//     const feedbackData = {
-//         name: name,
-//         feedback: feedback
-//     };
-
-//     // Đọc dữ liệu hiện tại trong file JSON
-//     fs.readFile('feedbacks.json', 'utf8', (err, data) => {
-//         let feedbacks = [];
-//         if (err) {
-//             if (err.code === 'ENOENT') {
-//                 // Nếu file chưa tồn tại, tạo một mảng trống
-//                 feedbacks = [];
-//             } else {
-//                 console.error('Lỗi khi đọc file:', err);
-//                 return res.status(500).send('Đã có lỗi xảy ra khi đọc phản hồi.');
-//             }
-//         } else {
-//             // Nếu file tồn tại, parse dữ liệu JSON
-//             feedbacks = JSON.parse(data);
-//         }
-
-//         // Thêm phản hồi mới vào mảng
-//         feedbacks.push(feedbackData);
-
-//         // Ghi lại dữ liệu vào file JSON
-//         fs.writeFile('feedbacks.json', JSON.stringify(feedbacks, null, 2), (err) => {
-//             if (err) {
-//                 console.error('Lỗi khi lưu dữ liệu:', err);
-//                 return res.status(500).send('Đã có lỗi xảy ra khi lưu phản hồi.');
-//             }
-
-//             // Gửi phản hồi thành công
-//             res.send("Cảm ơn bạn đã gửi phản hồi!");
-//         });
-//     });
-// });
-
-// app.listen(3000, () => console.log('Server đang chạy tại http://localhost:3000'));
-
 const express = require('express');
-const fs = require('fs');
 const bodyParser = require('body-parser');
-const app = express();
+const cors = require('cors'); // Import thư viện CORS
+const connection = require('./db');
 
+const app = express();
+const PORT = 3000;
+
+// Kích hoạt CORS cho mọi nguồn
+app.use(cors());
+
+// Middleware xử lý dữ liệu từ form
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// API xử lý khi gửi lời chúc
 app.post('/submit-feedback', (req, res) => {
     const { name, feedback } = req.body;
-    const feedbackData = `Tên: ${name}\nPhản hồi: ${feedback}\n\n`;
 
-    try {
-        // Ghi vào file synchronously để dễ kiểm tra
-        fs.appendFileSync('/Users/truongmanhtuan/Library/CloudStorage/OneDrive-m7xr/code/HappyNewYear2025_friend/feedbacks.json', feedbackData);
-        res.send("Cảm ơn bạn đã gửi phản hồi!");
-    } catch (err) {
-        console.error('Lỗi khi lưu dữ liệu:', err);
-        res.status(500).send('Đã có lỗi xảy ra khi lưu phản hồi.');
+    if (!name || !feedback) {
+        return res.status(400).send('Tên và lời chúc không được để trống.');
     }
+
+    const insertQuery = `INSERT INTO Content (name, content) VALUES (?, ?)`;
+    connection.query(insertQuery, [name, feedback], (err, result) => {
+        if (err) {
+            console.error('Lỗi khi lưu dữ liệu:', err);
+            return res.status(500).send('Lỗi khi lưu dữ liệu vào cơ sở dữ liệu.');
+        }
+
+        console.log('Dữ liệu đã được lưu thành công:', result);
+        res.status(200).send('Lời chúc của bạn đã được gửi thành công!');
+    });
 });
 
-app.listen(3000, () => console.log('Server đang chạy tại http://localhost:3000'));
+// Lắng nghe trên cổng 3000
+app.listen(PORT, () => {
+    console.log(`Server đang chạy tại http://127.0.0.1:${PORT}`);
+});
