@@ -1,1 +1,1 @@
-# Happy-New-Year-2025
+# HPNY2025

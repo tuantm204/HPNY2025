@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="website icon" type="png" href="image/snake.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="intro.css">
     <title>Happy New Year 2025</title>
 </head>
+
 <body>
     <div class="box-slider">
         <div class="slider1">
@@ -169,7 +174,7 @@
                 <span class="heart"><i class="fa-solid fa-heart"></i></span>
             </div>
         </div>
-        
+
         <div class="slider3">
             <div class="box-content">
                 <div class="left">
@@ -196,7 +201,7 @@
                             <div class="text-content">
                                 <h2>Happy New</h2>
                                 <h1>Year</h1>
-                                <span>2025</span>
+                                <h1>2025</h1>
                             </div>
                         </div>
                     </div>
@@ -213,33 +218,39 @@
                     <div class="content">
                         <div id="content-1" class="content-1">
                             <div class="title">
-                                <h1>&#129505Gửi em!</h1>
+                                <h1>&#129505Gửi bạn!</h1>
                             </div>
-                            <p>Năm mới, anh chỉ chúc em được nhiều sức khỏe thôi.
-                                 Còn về hạnh phúc và niềm vui, anh mong rằng chính 
-                                 mình sẽ là người mang những điều đó đến với em. Yêu 
-                                 em nhiều! Năm mới đến rồi, một năm qua thật đặc biệt 
-                                 với anh và cả em nữa. Năm mới đến đồng nghĩa với việc 
-                                 anh lại được nối dài năm tháng yêu thương chăm sóc em. 
-                                 Anh chúc em tràn đầy hạnh phúc ngọt ngào hãy gìn giữ và 
-                                 nuôi dưỡng tình yêu của chúng mình em nhé.
-                            </p>
+                            <p>Chúc Mừng Năm Mới! 🎉
+                                Một năm mới lại đến mang theo những hy vọng mới, những cơ hội mới.
+                                Chúc bạn và gia đình một năm mới thật nhiều sức khỏe, hạnh phúc, và thành công.
+                                Hy vọng rằng năm mới sẽ mang đến cho bạn thật nhiều niềm vui, những ước mơ trở thành
+                                hiện thực, và những trải nghiệm
+                                đáng nhớ. Chúc bạn luôn giữ được nụ cười tươi, nghị lực mạnh mẽ, và trái tim ấm áp.
+                                Chúc bạn một năm mới an khang thịnh vượng, hạnh phúc viên mãn! 🌟</p>
                             <div class="fixedContent">
                                 <h3>Người gửi: Truong Manh Tuan</h3>
                             </div>
                         </div>
-                        <div id="content-2" class="content-2"  style="display: none;">
-                            <img src="memories/avt.jpg" alt="">
+                        <div id="content-2" class="content-2" style="display: none;">
+                            <div class="title">
+                                <h1>Write a greeting</h1>
+                            </div>
+                            <input id="name-input" type="text" placeholder="Nhập tên của bạn..." />
+                            <textarea id="wish-input" placeholder="Nhập lời chúc của bạn..." rows="5"
+                                cols="50"></textarea>
+                            <br>
+                            <p id="wish-output"></p>
+                            <div class="box-button-send">
+                                <button id="send-wish-button">Send</button>
+                                <span class="heart"><i class="fa-solid fa-envelope"></i></span>
+                            </div>
+
                         </div>
                         <div class="box-button-left-right">
-                            <div class="button-left">
-                                <span><i class="fa-solid fa-arrow-left"></i></span>
-                                <button id="back-button">Back</button>
-                            </div>  
                             <div class="button-right">
-                                <button id="follow-button">Follow</button>
+                                <button id="follow-button">Send wishes</button>
                                 <span><i class="fa-solid fa-arrow-right"></i></span>
-                            </div>                           
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -252,6 +263,7 @@
         <source src="image/nhac.mp3" type="audio/mp3">
     </audio>
 
-<script src="intro.js"></script>
+    <script src="intro.js"></script>
 </body>
+
 </html>

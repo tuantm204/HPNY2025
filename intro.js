@@ -1,5 +1,5 @@
 var buttonActive = document.querySelector('.button button')
-buttonActive.onclick = function(){
+buttonActive.onclick = function () {
     var boxFlower = document.querySelector('.flower-img:nth-child(1)')
     var boxFlower2 = document.querySelector('.flower-img:nth-child(2)')
     var boxFlower3 = document.querySelector('.flower-img:nth-child(3)')
@@ -36,63 +36,82 @@ buttonActive.onclick = function(){
 var mail = document.querySelector(".mail")
 var slider3 = document.querySelector(".slider3")
 var closeSlider3 = document.querySelector(".fa-xmark")
-mail.onclick = function(){
+mail.onclick = function () {
     slider3.classList.add("active")
 }
-closeSlider3.addEventListener('click', function(){
+closeSlider3.addEventListener('click', function () {
     slider3.classList.remove('active')
 })
 
 
-// ------audio------------
-var buttonSong = document.querySelector('.button')
-var mySong = document.getElementById("song")
-buttonSong.onclick= function(){
-    if(mySong.paused){
-        mySong.play()
-    }
-}
+// // ------audio------------
+// var buttonSong = document.querySelector('.button')
+// var mySong = document.getElementById("song")
+// buttonSong.onclick= function(){
+//     if(mySong.paused){
+//         mySong.play()
+//     }
+// }
 
 
-// JavaScript Code
-const imagesFolder = "memories/"; // Thư mục chứa ảnh
-const totalImages = 13; // Đặt số lượng ảnh trong thư mục
-let currentIndex = 0; // Chỉ số ảnh hiện tại
+
 
 // Lấy các phần tử HTML
-const imageElement = document.querySelector('.content-2 img');
 const followButton = document.getElementById('follow-button');
-const backButton = document.getElementById('back-button');
 const content1 = document.getElementById('content-1');
 const content2 = document.getElementById('content-2');
+const nameInput = document.getElementById('name-input');
+const wishInput = document.getElementById('wish-input'); // Đổi tên cho đúng
+const sendWishButton = document.getElementById('send-wish-button');
+const wishOutput = document.getElementById('wish-output');
 
-// Sự kiện khi nhấn Follow
+
 followButton.addEventListener('click', () => {
-    if (content1.style.display !== 'none') {
-        // Lần đầu nhấn, ẩn content-1 và hiện content-2
-        content1.style.display = 'none';
-        content2.style.display = 'block';
-        imageElement.src = `${imagesFolder}${currentIndex + 1}.jpg`; // Hiển thị ảnh đầu tiên
+    if (content1.style.display === 'none') {
+        content1.style.display = 'block'; // Hiện content-1
+        content2.style.display = 'none';  // Ẩn content-2
+        followButton.textContent = 'Send wishes'; // Đổi thành Gửi lời chúc khi ở content-1
+        nameInput.value = ''; // Xóa nội dung trong ô nhập tên
+        wishInput.value = ''; // Xóa nội dung trong ô nhập lời chúc
+
     } else {
-        // Nếu chưa đến ảnh cuối, chuyển sang ảnh tiếp theo
-        if (currentIndex < totalImages - 1) {
-            currentIndex++;
-            imageElement.src = `${imagesFolder}${currentIndex + 1}.jpg`; // Đổi ảnh
-        }
+        content1.style.display = 'none';  // Ẩn content-1
+        content2.style.display = 'block'; // Hiện content-2
+        followButton.textContent = 'Back'; // Đổi thành Quay lại khi ở content-2
+        nameInput.value = ''; // Xóa nội dung trong ô nhập tên
+        wishInput.value = ''; // Xóa nội dung trong ô nhập lời chúc
+
     }
 });
 
-// Sự kiện khi nhấn Back
-backButton.addEventListener('click', () => {
-    if (content2.style.display === 'block') {
-        if (currentIndex > 0) {
-            // Nếu chưa đến ảnh đầu tiên, quay lại ảnh trước đó
-            currentIndex--;
-            imageElement.src = `${imagesFolder}${currentIndex + 1}.jpg`; // Đổi ảnh
-        } else {
-            // Nếu đang ở ảnh đầu tiên, quay lại content-1
-            content2.style.display = 'none';
-            content1.style.display = 'block';
-        }
+// Xử lý khi nhấn Gửi lời chúc
+// Xử lý khi nhấn Gửi lời chúc
+sendWishButton.addEventListener('click', () => {
+    const userName = nameInput.value.trim();
+    const userWish = wishInput.value.trim();
+
+    if (userName && userWish) {
+        // Thực hiện gửi dữ liệu bằng fetch
+        fetch('http://127.0.0.1:3000/submit-feedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `name=${userName}&feedback=${userWish}`  // Gửi dữ liệu vào server
+        })
+            .then(res => res.text())  // Nhận phản hồi từ server
+            .then(data => {
+                wishOutput.textContent = `Cảm ơn ${userName}! Lời chúc của bạn đã được gửi tới Tuan.`;
+                nameInput.value = '';  // Xóa nội dung trong ô nhập tên
+                wishInput.value = '';  // Xóa nội dung trong ô nhập lời chúc
+            })
+            .catch(err => {
+                console.error(err);
+                wishOutput.textContent = 'Đã có lỗi xảy ra, vui lòng thử lại sau.';
+            });
+    } else {
+        wishOutput.textContent = 'Vui lòng nhập cả tên và lời chúc trước khi gửi.';
     }
 });
+
+
+
+
